@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
-export default function ApprovalFreePage() {
+function ApprovalFreeContent() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -22,19 +22,11 @@ export default function ApprovalFreePage() {
       {/* Page Briefing in Highlighted Box */}
       <div className="max-w-5xl mx-auto mt-12 mb-20 px-4">
         <div className="bg-blue-100 border border-blue-300 rounded-lg p-6">
-          <p className="text-base text-blue-900 font-semibold mb-2">
-            공유 Pool 창작물 공유 조건 기준
-          </p>
+          <p className="text-base text-blue-900 font-semibold mb-2">공유 Pool 창작물 공유 조건 기준</p>
           <p className="text-sm text-blue-900 font-semibold mb-1">6.1 자유 공유 창작물</p>
-          <p className="text-sm text-blue-800 mb-1">
-            사용 목적에 제한이 없는 창작물로, 별도의 승인 또는 정산 절차를 거치지 않습니다.
-          </p>
-          <p className="text-sm text-blue-800 mb-1">
-            시스템 내에서 미리보기 / 미리듣기 등 기능을 활용하여 파악하고 자유롭게 다운로드 받을 수 있습니다.
-          </p>
-          <p className="text-sm text-blue-800">
-            단, 시스템 내에서 이용 내역이 기록됩니다.
-          </p>
+          <p className="text-sm text-blue-800 mb-1">사용 목적에 제한이 없는 창작물로, 별도의 승인 또는 정산 절차를 거치지 않습니다.</p>
+          <p className="text-sm text-blue-800 mb-1">시스템 내에서 미리보기 / 미리듣기 등 기능을 활용하여 파악하고 자유롭게 다운로드 받을 수 있습니다.</p>
+          <p className="text-sm text-blue-800">단, 시스템 내에서 이용 내역이 기록됩니다.</p>
         </div>
       </div>
 
@@ -47,5 +39,13 @@ export default function ApprovalFreePage() {
         )}
       </div>
     </>
+  );
+}
+
+export default function ApprovalFreePage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-sm text-gray-400">로딩 중...</div>}>
+      <ApprovalFreeContent />
+    </Suspense>
   );
 }
