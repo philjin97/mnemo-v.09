@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
-export default function DownloadPage() {
+function DownloadContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "sample asset";
 
-  // Simulate a list of asset names from query
   const assetList = [
     `${query}`,
   ];
@@ -40,5 +39,13 @@ export default function DownloadPage() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function DownloadPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-sm text-gray-400">로딩 중...</div>}>
+      <DownloadContent />
+    </Suspense>
   );
 }
